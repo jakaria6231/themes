@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Theme Studio</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Courgette&family=Nunito:wght@600;800&family=Oswald:wght@500&family=Playfair+Display:wght@600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Courgette&family=Nunito:wght@600;800&family=Oswald:wght@500&family=Playfair+Display:wght@600&family=Orbitron:wght@600&family=Space+Grotesk:wght@500&family=Syne:wght@700&family=Cormorant+Garamond:wght@600&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 :root{--bg:#E9ECF5;--pn:rgba(255,255,255,.68);--ink:#141728;--mute:#555B78;--ln:rgba(20,23,40,.13);--acc:#3347D6;--on:#fff;--hd:'Bricolage Grotesque',system-ui,sans-serif;--g1:#2563EB55;--g2:#06B6D455;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -65,6 +65,49 @@ ol{margin:12px 0 0;padding-left:22px}li{margin:0 0 8px}
 .sr{margin-top:auto;border:1px solid rgba(255,255,255,.3);border-radius:9cqw;padding:3.5cqw 5cqw;opacity:.85}
 @media (max-width:900px){.wrap{grid-template-columns:1fr}.side{order:-1;position:static}.stage{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px}.pw{flex:0 0 min(62vw,250px);scroll-snap-align:center}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@property --g1{syntax:'<color>';inherits:true;initial-value:#2563EB66}
+@property --g2{syntax:'<color>';inherits:true;initial-value:#06B6D444}
+:root{transition:--g1 1s,--g2 1s}
+body::before,body::after{content:"";position:fixed;z-index:-1;width:62vmax;height:62vmax;border-radius:50%;filter:blur(90px);opacity:.55;animation:dr 24s ease-in-out infinite alternate;pointer-events:none}
+body::before{background:var(--g1);left:-18vmax;top:-18vmax}body::after{background:var(--g2);right:-20vmax;bottom:-22vmax;animation-delay:-11s}
+@keyframes dr{to{transform:translate(14vmax,10vmax) scale(1.25)}}
+h1{background:linear-gradient(100deg,var(--ink) 20%,var(--acc) 50%,var(--ink) 80%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 8s linear infinite}
+@keyframes sh{to{background-position:-250% 0}}
+fieldset{animation:up .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k,0)*70ms);transition:border-color .3s}
+fieldset:hover{border-color:var(--acc)}
+@keyframes up{from{opacity:0;transform:translateY(18px)}}
+.chips button,.btn,.pg button,.sw{transition:transform .2s,background .25s,color .25s,border-color .25s,box-shadow .25s}
+.chips button:hover,.btn:hover,.pg button:hover{transform:translateY(-2px);border-color:var(--acc)}
+.sw:hover{transform:scale(1.18)}button:active{transform:scale(.95)!important}
+.chips button[aria-pressed="true"]{box-shadow:0 6px 18px -6px var(--acc)}
+.pg button[aria-pressed="true"]{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,transparent)}
+.pg i{transition:transform .4s}.pg button:hover i{transform:rotate(14deg) scale(1.12)}
+.btn.main{background:linear-gradient(110deg,var(--acc),#C084FC,var(--acc));background-size:220% 100%;animation:sh2 4s linear infinite}
+@keyframes sh2{to{background-position:220% 0}}
+#st{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));translate:-50% 30px;opacity:0;margin:0;min-height:0;max-width:90vw;background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:999px;font-weight:600;transition:.4s cubic-bezier(.2,1.2,.4,1);z-index:20;pointer-events:none}
+#st.on{translate:-50% 0;opacity:1}
+.phone{border:7px solid var(--pb,#0b0c12);border-radius:var(--pr,34px);transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out,border-radius .5s,border-color .5s}
+.phone canvas{animation:dft 16s ease-in-out infinite alternate}
+@keyframes dft{to{transform:scale(1.12) translate(-2%,-1.5%)}}
+.pw{animation:fl 7s ease-in-out infinite;animation-delay:calc(var(--n,0)*-1.7s)}
+@keyframes fl{50%{transform:translateY(-9px)}}
+.stage.go .ap{animation:pop .55s cubic-bezier(.3,1.6,.5,1) both;animation-delay:calc(var(--i,0)*35ms)}
+@keyframes pop{from{opacity:0;transform:scale(.4) translateY(14px)}}
+.stage.go .phone::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);animation:sw .9s ease-out both}
+@keyframes sw{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.scr{padding:8.5cqw 5cqw 8cqw}
+.cut{position:absolute;top:2.4cqw;background:#000;z-index:3}
+.cut.c{left:50%;width:4cqw;height:4cqw;border-radius:50%;margin-left:-2cqw}
+.cut.l{left:8cqw;width:4cqw;height:4cqw;border-radius:50%}
+.cut.n{left:50%;top:0;width:17cqw;height:5.5cqw;margin-left:-8.5cqw;border-radius:0 0 4cqw 4cqw}
+.cut.p{left:50%;width:22cqw;height:5.5cqw;margin-left:-11cqw;border-radius:9cqw}
+.nv{position:absolute;left:0;right:0;bottom:2cqw;text-align:center;font-style:normal;font-size:4cqw;letter-spacing:4cqw;opacity:.75}
+.nv.g{left:50%;right:auto;width:28cqw;margin-left:-14cqw;height:1.2cqw;border-radius:9px;background:currentColor;bottom:2.2cqw}
+.wm{text-align:center;font-size:3cqw;letter-spacing:.3em;opacity:.6;margin-top:3cqw;text-transform:uppercase}
+.sr.h{margin-top:3cqw;margin-bottom:0}.sr.t{margin:0 0 3.5cqw}
+.ap img{width:var(--is,84%);margin:0 auto;transition:width .3s}
+.nl .ap span{display:none}.up .ap span{text-transform:uppercase;letter-spacing:.08em;font-size:2.2cqw}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}.phone{transform:none}}
 </style>
 </head>
 <body>
@@ -72,22 +115,24 @@ ol{margin:12px 0 0;padding-left:22px}li{margin:0 0 8px}
 <section>
   <h1>Design your phone theme</h1>
   <p class="lead">Start from a look, tune every detail, and see your home screen, lock screen, app drawer and notifications update live.</p>
-  <fieldset><legend>Phone brand</legend><div class="chips" id="brands"></div></fieldset>
+  <div class="row" style="margin:0 0 14px"><button class="btn main" id="sur" type="button">Surprise me with a theme</button></div>
+  <fieldset><legend>Phone brand</legend><div class="chips" id="brands"></div><p class="note" id="bn"></p></fieldset>
   <fieldset><legend>Start from a look</legend><div class="pg" id="looks"></div></fieldset>
   <fieldset><legend>What to include</legend><div class="chips" id="inc"></div></fieldset>
   <fieldset><legend>Colors</legend>
     <div class="row" id="sws" style="margin-top:0"></div>
     <div class="row"><label>Main <input type="color" id="c1"></label><label>Second <input type="color" id="c2"></label></div>
-    <div class="row chips" id="mode"></div>
+    <div class="row chips" id="mode"></div><div class="row"><button class="btn" id="swp" type="button">Swap main and second</button></div>
   </fieldset>
   <fieldset><legend>Wallpaper</legend>
     <div class="chips" id="wp"></div>
     <div class="row"><button class="btn" id="shuf" type="button">Shuffle the pattern</button><button class="btn" id="up" type="button">Use my own photo</button><input type="file" id="file" accept="image/*" hidden></div>
     <div class="row"><label class="rg">Darken <input type="range" id="dim" min="0" max=".7" step=".05"></label></div>
+    <div class="row"><label class="rg">Film grain <input type="range" id="gr" min="0" max="1" step=".1"></label></div>
   </fieldset>
   <fieldset><legend>Icons</legend>
     <div class="chips" id="istyle"></div>
-    <div class="row"><label class="rg">Roundness <input type="range" id="rad" min="6" max="50" step="1"></label></div>
+    <div class="row"><label class="rg">Roundness <input type="range" id="rad" min="6" max="50" step="1"></label></div><div class="row"><label class="rg">Icon size <input type="range" id="isz" min="60" max="100" step="1"></label></div><div class="row chips" id="ilab"></div>
   </fieldset>
   <fieldset><legend>Text and glass</legend>
     <div class="chips" id="font"></div>
@@ -95,14 +140,15 @@ ol{margin:12px 0 0;padding-left:22px}li{margin:0 0 8px}
     <div class="row"><label class="rg">Glass blur <input type="range" id="gb" min="0" max="30" step="1"></label><label class="rg">Glass tint <input type="range" id="ga" min="0.04" max="0.5" step="0.02"></label></div>
   </fieldset>
   <fieldset><legend>Download and set it up</legend>
-    <div class="chips"><button class="btn main" id="zip" type="button">Download theme (.zip)</button><button class="btn" id="hb" type="button">Home wallpaper</button><button class="btn" id="lb" type="button">Lock wallpaper</button></div>
-    <p id="st" role="status"></p>
+    <div class="chips"><button class="btn main" id="zip" type="button">Download theme (.zip)</button><button class="btn" id="hb" type="button">Home wallpaper</button><button class="btn" id="lb" type="button">Lock wallpaper</button><button class="btn" id="js" type="button">Settings (.json)</button></div>
+    
     <p class="note">The zip holds wallpapers, icons, glass widget backgrounds, a color palette and a setup guide. Phone brands only accept full theme files (like Xiaomi’s .mtz) from their own designer tools, so the steps below show how to apply everything by hand.</p>
     <ol id="steps"></ol>
   </fieldset>
 </section>
 <aside class="side"><div class="stage" id="stage"></div></aside>
 </main>
+<p id="st" role="status"></p>
 <script>
 const $=s=>document.querySelector(s);
 const BR=[
@@ -133,15 +179,29 @@ const IC=[['Phone','M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.
 ['Videos','M23 7l-7 5 7 5z M3 5h11a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z'],
 ['Health','M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z']];
 const N=IC.length;
-const FN={script:['Script','Courgette'],rounded:['Rounded','Nunito'],condensed:['Condensed','Oswald'],serif:['Serif','Playfair Display']};
-const PRE=[['Ocean','#2563EB','#06B6D4'],['Sunset','#F97316','#DB2777'],['Orchid','#7C3AED','#EC4899'],['Forest','#15803D','#CA8A04'],['Mint','#0D9488','#84CC16'],['Slate','#334155','#94A3B8']];
-const LK=[
-['Midnight Knit',{c1:'#1E5F8C',c2:'#8CC0E0',dark:1,wp:'peaks',istyle:'knit',rad:24,font:'script',lock:'giant',gb:14,ga:.12,dim:.1}],
-['Aurora Glass',{c1:'#7C3AED',c2:'#22D3EE',dark:1,wp:'glow',istyle:'glass',rad:34,font:'rounded',lock:'center',gb:22,ga:.16,dim:0}],
-['Sakura Soft',{c1:'#EC4899',c2:'#F59E0B',dark:0,wp:'waves',istyle:'solid',rad:50,font:'rounded',lock:'center',gb:16,ga:.4,dim:0}],
-['Neon Grid',{c1:'#22C55E',c2:'#06B6D4',dark:1,wp:'shapes',istyle:'outline',rad:16,font:'condensed',lock:'giant',gb:8,ga:.08,dim:.25}],
-['Royal Ink',{c1:'#B45309',c2:'#FCD34D',dark:1,wp:'gradient',istyle:'solid',rad:30,font:'serif',lock:'left',gb:12,ga:.14,dim:.1}]];
-const S={brand:'xiaomi',inc:{home:1,lock:1,icons:1,widgets:1,palette:1},seed:7,img:null,...LK[0][1]};
+const BX={xiaomi:['HyperOS','c','g','panel',32,'#0b0c12',34,0,'centre punch-hole, glass dock, gesture bar'],samsung:['One UI','c','g','panel',38,'#101118',30,0,'squircle icons, glass dock, gesture bar'],oppo:['ColorOS','l','g','panel',34,'#0d0d12',32,0,'left punch-hole, soft dock'],vivo:['OriginOS','n','g','flat',30,'#0b0c12',30,0,'teardrop notch, floating flat dock'],huawei:['HarmonyOS','l','3','panel',36,'#0c0d14',36,0,'3-button navigation, glass dock'],pixel:['Pixel UI','c','g','flat',50,'#14151a',40,1,'round icons, search pill, no dock panel'],oneplus:['OxygenOS','l','g','panel',28,'#0a0a0d',28,0,'left punch-hole, tight corners'],moto:['Hello UX','c','g','flat',50,'#0c0c10',30,0,'round icons, flat dock'],nothing:['Nothing OS','p','g','flat',18,'#e8e8ec',32,0,'white frame, pill cutout, uppercase labels'],other:['Android','c','3','panel',30,'#0b0c12',28,0,'classic 3-button navigation']};
+const FN={script:['Script','Courgette'],rounded:['Rounded','Nunito'],condensed:['Condensed','Oswald'],serif:['Serif','Playfair Display'],tech:['Tech','Orbitron'],grotesk:['Modern','Space Grotesk'],display:['Display','Syne'],elegant:['Elegant','Cormorant Garamond']};
+const cap=k=>k[0].toUpperCase()+k.slice(1);
+const PRE=[['Ocean','#2563EB','#06B6D4'],['Sunset','#F97316','#DB2777'],['Orchid','#7C3AED','#EC4899'],['Forest','#15803D','#CA8A04'],['Mint','#0D9488','#84CC16'],['Slate','#334155','#94A3B8'],['Rose','#E11D48','#FB7185'],['Gold','#CA8A04','#FDE047'],['Lavender','#8B5CF6','#C4B5FD'],['Coral','#EF4444','#FDBA74'],['Cyber','#D946EF','#22D3EE'],['Mono','#18181B','#A1A1AA']];
+const T=(n,c1,c2,dark,wp,istyle,rad,font,lock,gb,ga,dim,gr=0)=>[n,{c1,c2,dark,wp,istyle,rad,font,lock,gb,ga,dim,gr}];
+const LK=[T('Midnight Knit','#1E5F8C','#8CC0E0',1,'peaks','knit',24,'script','giant',14,.12,.1),
+T('Aurora Glass','#7C3AED','#22D3EE',1,'glow','glass',34,'rounded','center',22,.16,0),
+T('Sakura Soft','#EC4899','#F59E0B',0,'waves','solid',50,'rounded','center',16,.4,0),
+T('Neon Grid','#22C55E','#06B6D4',1,'shapes','outline',16,'condensed','giant',8,.08,.25),
+T('Royal Ink','#B45309','#FCD34D',1,'gradient','solid',30,'serif','left',12,.14,.1),
+T('Synthwave','#7C3AED','#F472B6',1,'grid','neon',26,'tech','giant',10,.1,0),
+T('Northern Lights','#10B981','#6366F1',1,'aurora','glass',36,'grotesk','stack',20,.14,.05),
+T('Cosmic Night','#4F46E5','#C084FC',1,'stars','solid',30,'display','center',16,.12,0,.3),
+T('Desert Dusk','#EA580C','#FBBF24',0,'waves','flat',40,'elegant','left',14,.3,0),
+T('Mono Noir','#52525B','#E4E4E7',1,'rings','outline',22,'grotesk','giant',10,.08,.2,.4),
+T('Matcha Zen','#4D7C0F','#A3E635',0,'rings','duo',44,'rounded','center',16,.36,0),
+T('Ice Crystal','#0EA5E9','#BAE6FD',0,'gradient','glass',32,'grotesk','center',24,.3,0),
+T('Lava Flow','#DC2626','#F97316',1,'glow','solid',26,'condensed','giant',12,.1,.1),
+T('Peach Cream','#FB7185','#FDBA74',0,'shapes','flat',48,'rounded','left',14,.4,0),
+T('Deep Ocean','#0369A1','#22D3EE',1,'waves','glass',34,'elegant','center',18,.14,.1),
+T('Retro Arcade','#FACC15','#F43F5E',1,'shapes','flat',10,'tech','stack',8,.1,.2,.2)];
+const WP=['peaks','glow','gradient','waves','shapes','aurora','stars','rings','grid'],IS=['knit','solid','glass','outline','flat','neon','duo'],LS=['giant','center','left','stack'];
+const S={brand:'xiaomi',inc:{home:1,lock:1,icons:1,widgets:1,palette:1},seed:7,img:null,isz:84,lab:1,look:LK[0][0],...LK[0][1]};
 
 const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
 const mix=(a,b,t)=>'#'+rgb(a).map((v,i)=>Math.round(v+(rgb(b)[i]-v)*t).toString(16).padStart(2,'0')).join('');
@@ -157,20 +217,28 @@ function drawWall(x,w,h,seed){
   if(wp==='peaks'){const k=x.createLinearGradient(0,0,0,h*.7);k.addColorStop(0,mix(base,c2,.45));k.addColorStop(1,base);x.fillStyle=k;x.fillRect(0,0,w,h);
     for(let i=0;i<5;i++){const b=h*(.5+i*.1),a=h*(.2-i*.03),ph=r()*6,fr=2+r()*2;x.beginPath();x.moveTo(0,h);for(let p=0;p<=w;p+=w/30)x.lineTo(p,b-a*(Math.abs(Math.sin(p/w*fr+ph))*.75+r()*.25));x.lineTo(w,h);x.closePath();x.fillStyle=mix(mix(base,c1,.5),dark?'#000000':'#ffffff',i*.16);x.fill();
       const m=x.createLinearGradient(0,b-a*.3,0,b+h*.08),mc=mix(c2,'#ffffff',.3);m.addColorStop(0,mc+'00');m.addColorStop(1,mc+'55');x.fillStyle=m;x.fillRect(0,b-a*.3,w,h*.38)}}
+  if(wp==='aurora')for(let i=0;i<4;i++){const y0=h*(.12+i*.15),am=h*(.04+r()*.05),ph=r()*6,c=i%2?c2:c1,hh=h*.32,g=x.createLinearGradient(0,y0-am,0,y0+hh);g.addColorStop(0,c+'00');g.addColorStop(.25,c+'bb');g.addColorStop(1,c+'00');x.beginPath();x.moveTo(0,y0+hh);for(let q=0;q<=w;q+=w/40)x.lineTo(q,y0+Math.sin(q/w*Math.PI*2+ph)*am);x.lineTo(w,y0+hh);x.closePath();x.fillStyle=g;x.fill()}
+  if(wp==='stars'){const g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,mix(base,c1,.35));g.addColorStop(1,base);x.fillStyle=g;x.fillRect(0,0,w,h);const n=x.createRadialGradient(w*.7,h*.3,0,w*.7,h*.3,w*.8);n.addColorStop(0,c2+'88');n.addColorStop(1,c2+'00');x.fillStyle=n;x.fillRect(0,0,w,h);for(let i=0;i<180;i++){x.fillStyle=`rgba(255,255,255,${.25+r()*.75})`;x.beginPath();x.arc(r()*w,r()*h,(.3+r()*r()*2.2)*w/400,0,7);x.fill()}}
+  if(wp==='rings'){const cx=w*(.3+r()*.4),cy=h*(.3+r()*.2);for(let i=1;i<=16;i++){x.beginPath();x.arc(cx,cy,i*w*.085,0,7);x.strokeStyle=mix(c1,c2,i/16)+(i%2?'99':'44');x.lineWidth=w*.008;x.stroke()}}
+  if(wp==='grid'){const hz=h*.58,g=x.createLinearGradient(0,hz-w*.4,0,hz);g.addColorStop(0,c2);g.addColorStop(1,c1);x.fillStyle=g;x.beginPath();x.arc(w/2,hz,w*.38,Math.PI,0);x.fill();x.fillStyle=base;x.fillRect(0,hz,w,h);x.strokeStyle=mix(c1,c2,.5)+'cc';x.lineWidth=w*.004;for(let i=1;i<=12;i++){const y=hz+(h-hz)*(i/12)**2;x.beginPath();x.moveTo(0,y);x.lineTo(w,y);x.stroke()}for(let i=-8;i<=8;i++){x.beginPath();x.moveTo(w/2+i*w*.04,hz);x.lineTo(w/2+i*w*.4,h);x.stroke()}}
   if(wp==='photo'&&S.img){const k=Math.max(w/S.img.width,h/S.img.height);x.drawImage(S.img,(w-S.img.width*k)/2,(h-S.img.height*k)/2,S.img.width*k,S.img.height*k)}
   if(S.dim>0){x.fillStyle=`rgba(0,0,0,${S.dim})`;x.fillRect(0,0,w,h)}
+  if(S.gr>0){const q=1.4*w/600;for(let i=0,n=w*h*S.gr/90;i<n;i++){x.fillStyle=i%2?'rgba(255,255,255,.08)':'rgba(0,0,0,.08)';x.fillRect(r()*w,r()*h,q,q)}}
 }
 function drawIcon(x,s,i){
-  const col=mix(S.c1,S.c2,i/(N-1)),r=S.rad/100*s,st=S.istyle;let ink='#fff';
+  const col=mix(S.c1,S.c2,i/(N-1)),r=S.rad/100*s,st=S.istyle;let ink='#fff',glow=0,ol=0,a,b;
   x.clearRect(0,0,s,s);x.save();x.beginPath();x.roundRect(1,1,s-2,s-2,r);x.clip();
-  if(st==='knit'||st==='solid'){const g=x.createLinearGradient(0,0,s,s);
-    if(st==='knit'){g.addColorStop(0,'#1d2127');g.addColorStop(1,'#0b0d10')}else{g.addColorStop(0,mix(col,'#ffffff',.2));g.addColorStop(1,mix(col,'#000000',.3))}
-    x.fillStyle=g;x.fillRect(0,0,s,s);
-    if(st==='knit'){x.fillStyle='rgba(255,255,255,.07)';for(let k=0;k<s;k+=s/40){x.fillRect(k,0,s/80,s);x.fillRect(0,k,s,s/80)}ink=mix(col,'#ffffff',.25)}}
-  else if(st==='glass'){x.fillStyle=S.dark?'rgba(255,255,255,.2)':'rgba(255,255,255,.6)';x.fillRect(0,0,s,s);if(!S.dark)ink=mix(col,'#000000',.4)}
-  else ink=col;
-  x.restore();x.beginPath();x.roundRect(1,1,s-2,s-2,r);x.strokeStyle=st==='outline'?col:'rgba(255,255,255,.22)';x.lineWidth=st==='outline'?s/24:s/60;x.stroke();
-  x.save();x.translate(s*.25,s*.25);x.scale(s*.5/24,s*.5/24);if(st==='knit'){x.shadowColor=col;x.shadowBlur=s*.12}
+  if(st==='knit'){a='#1d2127';b='#0b0d10';ink=mix(col,'#ffffff',.25);glow=1}
+  else if(st==='solid'){a=mix(col,'#ffffff',.2);b=mix(col,'#000000',.3)}
+  else if(st==='flat')a=b=col;
+  else if(st==='neon'){a='#10111c';b='#05060c';ink=col;glow=ol=1}
+  else if(st==='duo'){a=mix(col,'#ffffff',.9);b=mix(col,'#ffffff',.7);ink=mix(col,'#000000',.35)}
+  else if(st==='glass'){a=b=S.dark?'rgba(255,255,255,.2)':'rgba(255,255,255,.6)';if(!S.dark)ink=mix(col,'#000000',.4)}
+  else{ink=col;ol=1}
+  if(st!=='outline'){const g=x.createLinearGradient(0,0,s,s);g.addColorStop(0,a);g.addColorStop(1,b);x.fillStyle=g;x.fillRect(0,0,s,s)}
+  if(st==='knit'){x.fillStyle='rgba(255,255,255,.07)';for(let k=0;k<s;k+=s/40){x.fillRect(k,0,s/80,s);x.fillRect(0,k,s,s/80)}}
+  x.restore();x.beginPath();x.roundRect(1,1,s-2,s-2,r);x.strokeStyle=ol?col:'rgba(255,255,255,.22)';x.lineWidth=ol?s/24:s/60;x.stroke();
+  x.save();x.translate(s*.25,s*.25);x.scale(s*.5/24,s*.5/24);if(glow){x.shadowColor=col;x.shadowBlur=s*.12}
   x.strokeStyle=ink;x.lineWidth=st==='knit'?2.4:2;x.lineCap=x.lineJoin='round';x.stroke(new Path2D(IC[i][1]));x.restore();
 }
 function drawGlass(x,w,h,rad){x.beginPath();x.roundRect(3,3,w-6,h-6,rad);x.fillStyle=`rgba(255,255,255,${S.ga+.04})`;x.fill();const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,'rgba(255,255,255,.5)');g.addColorStop(.5,'rgba(255,255,255,.06)');g.addColorStop(1,'rgba(255,255,255,.35)');x.strokeStyle=g;x.lineWidth=5;x.stroke()}
@@ -178,7 +246,7 @@ const png=(w,h,fn)=>new Promise(r=>{const c=document.createElement('canvas');c.w
 const iconURL=i=>{const c=document.createElement('canvas');c.width=c.height=128;drawIcon(c.getContext('2d'),128,i);return c.toDataURL()};
 const sv=(i,c)=>`<svg viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${IC[i][1]}"/></svg>`;
 
-function chips(id,items,on,pick){const el=$(id);el.innerHTML='';items.forEach(([k,l])=>{const b=document.createElement('button');b.type='button';b.textContent=l;b.setAttribute('aria-pressed',!!on(k));b.onclick=()=>{pick(k);update()};el.append(b)})}
+function chips(id,items,on,pick){const el=$(id);el.innerHTML='';items.forEach(([k,l])=>{const b=document.createElement('button');b.type='button';b.textContent=l;b.setAttribute('aria-pressed',!!on(k));b.onclick=()=>{pick(k);go();update()};el.append(b)})}
 function pal(){const{c1,c2,dark}=S;return{mode:dark?'dark':'light',primary:c1,secondary:c2,background:dark?mix(c1,'#000000',.85):mix(c1,'#ffffff',.92),surface:dark?mix(c1,'#000000',.7):mix(c1,'#ffffff',.8),text:dark?'#F2F3FA':'#16182A',font:FN[S.font][1],iconStyle:S.istyle,glassBlur:S.gb,glassTint:S.ga}}
 function steps(){
   const b=BR.find(x=>x[0]===S.brand),H=S.inc.home,L=S.inc.lock,a=['Unzip: open my-theme.zip in Files by Google (or your file manager) and tap Extract.'];
@@ -191,40 +259,41 @@ function steps(){
 
 function screens(U){
   const t=new Date(),p=n=>String(n).padStart(2,'0'),hm=p(t.getHours())+':'+p(t.getMinutes()),hms=hm+':'+p(t.getSeconds()),dt=t.toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'}),
-  sb=`<div class="sb"><span>${hm}</span><span>53%</span></div>`,ap=(i,l=1)=>`<div class="ap"><img alt="" src="${U[i]}">${l?`<span>${IC[i][0]}</span>`:''}</div>`,
-  W=S.inc.widgets?`<div class="wr"><div class="gl"><b>${hms}</b><div class="rw"><span>${t.toLocaleDateString([], {weekday:'long'})}</span><span style="color:var(--c2)">${t.getDate()}/${t.getMonth()+1}</span></div><div class="rw"><span>5116 steps<div class="bar"><i style="width:40%;background:#FBBF24"></i></div></span><span>53%<div class="bar"><i style="width:53%;background:#34D399"></i></div></span></div></div><div class="gl"><span>Your city</span><b>Light rain</b><div class="rw"><span>Tom<br>25/22°</span><span>Sat<br>25/21°</span></div></div></div>`:'';
-  const lt=S.lock==='giant'?`<div class="lk"><div class="d">${dt}</div><div class="gt">${hm}</div></div>`:S.lock==='center'?`<div class="lk"><div class="d">${dt}</div><div class="ct">${hm}</div></div>`:`<div class="lk" style="text-align:left"><div class="ct">${hm}</div><div class="d">${dt}</div></div>`;
+  B=BX[S.brand],sb=`<i class="cut ${B[1]}"></i>`+(B[2]==='g'?'<i class="nv g"></i>':'<i class="nv">◁ ○ □</i>')+`<div class="sb"><span class="hm">${hm}</span><span>${B[7]?'':B[0]+' · '}53%</span></div>`,ap=(i,l=1)=>`<div class="ap" style="--i:${i}"><img alt="" src="${U[i]}">${l?`<span>${IC[i][0]}</span>`:''}</div>`,
+  W=S.inc.widgets?`<div class="wr"><div class="gl"><b class="hs">${hms}</b><div class="rw"><span>${t.toLocaleDateString([], {weekday:'long'})}</span><span style="color:var(--c2)">${t.getDate()}/${t.getMonth()+1}</span></div><div class="rw"><span>5116 steps<div class="bar"><i style="width:40%;background:#FBBF24"></i></div></span><span>53%<div class="bar"><i style="width:53%;background:#34D399"></i></div></span></div></div><div class="gl"><span>Your city</span><b>Light rain</b><div class="rw"><span>Tom<br>25/22°</span><span>Sat<br>25/21°</span></div></div></div>`:'';
+  const lt=(S.lock==='giant'?`<div class="lk"><div class="d">${dt}</div><div class="gt hm">${hm}</div></div>`:S.lock==='center'?`<div class="lk"><div class="d">${dt}</div><div class="ct hm">${hm}</div></div>`:S.lock==='stack'?`<div class="lk" style="text-align:left"><div class="ct" style="font-size:30cqw;line-height:.88"><span class="hh">${p(t.getHours())}</span><br><span class="mm">${p(t.getMinutes())}</span></div><div class="d">${dt}</div></div>`:`<div class="lk" style="text-align:left"><div class="ct hm">${hm}</div><div class="d">${dt}</div></div>`)+`<div class="wm">${B[0]}</div>`;
   return{
-    home:sb+W+`<div class="gr">${[4,5,6,7,8,9,10,11].map(i=>ap(i)).join('')}</div><div class="gl dk">${[0,1,2,3].map(i=>ap(i,0)).join('')}</div>`,
+    home:sb+W+`<div class="gr">${[4,5,6,7,8,9,10,11].map(i=>ap(i)).join('')}</div><div class="${B[3]==='panel'?'gl ':''}dk">${[0,1,2,3].map(i=>ap(i,0)).join('')}</div>${B[7]?'<div class="sr h">G &nbsp; Search</div>':''}`,
     lock:sb+lt+(S.inc.widgets?`<div class="lw"><span>53%<br>Device battery</span><span>Steps<br>5116</span></div>`:'')+`<div class="bt"><div class="gl">${sv(9,'currentColor')}</div><div class="gl">${sv(3,'currentColor')}</div></div>`,
-    apps:sb+`<div class="tb"><span>All</span><span>Social</span><span>Tools</span></div><div class="gr">${IC.map((_,i)=>ap(i)).join('')}</div><div class="sr">Search for apps</div>`,
+    apps:sb+(B[7]?'<div class="sr t">Search your phone</div>':'')+`<div class="tb"><span>All</span><span>Social</span><span>Tools</span></div><div class="gr">${IC.map((_,i)=>ap(i)).join('')}</div>${B[7]?'':'<div class="sr">Search for apps</div>'}`,
     shade:sb+`<div class="big"><b>${hm}</b><span>${dt}</span></div><div class="gl qs">${[5,7,6,2,3].map((i,n)=>`<em class="${n?'':'on'}">${sv(i,'currentColor')}</em>`).join('')}</div><div class="gl br"><i></i></div>${[[1,'Messages','New message from Sam'],[8,'Mail','Your report is ready'],[10,'Calendar','Design review at 4:00']].map(([i,a,b])=>`<div class="gl nt"><img alt="" src="${U[i]}"><div><b>${a}</b><span>${b}</span></div></div>`).join('')}`};
 }
 const PH=[['home','Home'],['lock','Lock screen'],['apps','App drawer'],['shade','Notifications']];
-$('#stage').innerHTML=PH.map(([k,l])=>`<figure class="pw"><div class="phone" id="p-${k}"><canvas width="300" height="650"></canvas><div class="scr"></div></div><figcaption>${l}</figcaption></figure>`).join('');
+$('#stage').innerHTML=PH.map(([k,l],n)=>`<figure class="pw" style="--n:${n}"><div class="phone" id="p-${k}"><canvas width="300" height="650"></canvas><div class="scr"></div></div><figcaption>${l}</figcaption></figure>`).join('');
 
 function update(){
-  chips('#brands',BR,k=>S.brand===k,k=>S.brand=k);
+  chips('#brands',BR,k=>S.brand===k,k=>{S.brand=k;S.rad=BX[k][4]});
   chips('#inc',[['home','Home wallpaper'],['lock','Lock wallpaper'],['icons','Icon pack'],['widgets','Widgets'],['palette','Color palette']],k=>S.inc[k],k=>S.inc[k]=S.inc[k]?0:1);
   chips('#mode',[['d','Dark'],['l','Light']],k=>!!S.dark===(k==='d'),k=>S.dark=k==='d'?1:0);
-  chips('#wp',[['peaks','Peaks'],['glow','Glow'],['gradient','Gradient'],['waves','Waves'],['shapes','Shapes'],['photo','My photo']],k=>S.wp===k,k=>{S.wp=k;if(k==='photo'&&!S.img)$('#file').click()});
-  chips('#istyle',[['knit','Knit'],['solid','Solid'],['glass','Glass'],['outline','Outline']],k=>S.istyle===k,k=>S.istyle=k);
+  chips('#wp',[...WP.map(k=>[k,cap(k)]),['photo','My photo']],k=>S.wp===k,k=>{S.wp=k;if(k==='photo'&&!S.img)$('#file').click()});
+  chips('#istyle',IS.map(k=>[k,cap(k)]),k=>S.istyle===k,k=>S.istyle=k);
+  chips('#ilab',[['1','Show app names'],['0','Hide app names']],k=>+k===S.lab,k=>S.lab=+k);
   chips('#font',Object.entries(FN).map(([k,v])=>[k,v[0]]),k=>S.font===k,k=>S.font=k);
-  chips('#lock',[['giant','Giant clock'],['center','Centered'],['left','Left']],k=>S.lock===k,k=>S.lock=k);
-  $('#looks').innerHTML='';LK.forEach(([n,o])=>{const b=document.createElement('button');b.type='button';b.innerHTML=`<i style="background:linear-gradient(135deg,${o.c1},${o.c2})"></i>${n}`;b.onclick=()=>{Object.assign(S,o);sync();update()};$('#looks').append(b)});
-  $('#sws').innerHTML='';PRE.forEach(([n,a,b])=>{const s=document.createElement('button');s.type='button';s.className='sw';s.title=n;s.setAttribute('aria-label',n);s.style.background=`linear-gradient(135deg,${a},${b})`;s.setAttribute('aria-pressed',S.c1===a&&S.c2===b);s.onclick=()=>{S.c1=a;S.c2=b;sync();update()};$('#sws').append(s)});
+  chips('#lock',[['giant','Giant clock'],['center','Centered'],['left','Left'],['stack','Stacked']],k=>S.lock===k,k=>S.lock=k);
+  $('#looks').innerHTML='';LK.forEach(([n,o])=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',S.look===n);b.innerHTML=`<i style="background:linear-gradient(135deg,${o.c1},${o.c2})"></i>${n}`;b.onclick=()=>{Object.assign(S,o,{look:n});go();update()};$('#looks').append(b)});
+  $('#sws').innerHTML='';PRE.forEach(([n,a,b])=>{const s=document.createElement('button');s.type='button';s.className='sw';s.title=n;s.setAttribute('aria-label',n);s.style.background=`linear-gradient(135deg,${a},${b})`;s.setAttribute('aria-pressed',S.c1===a&&S.c2===b);s.onclick=()=>{S.c1=a;S.c2=b;go();update()};$('#sws').append(s)});
   $('#steps').innerHTML=steps().map(t=>`<li>${t}</li>`).join('');
   const st=$('#stage').style,R=document.documentElement.style;
-  st.setProperty('--fg',S.dark?'#fff':'#14172a');st.setProperty('--gb',S.gb+'px');st.setProperty('--ga',S.ga);st.setProperty('--tf',`'${FN[S.font][1]}',system-ui,sans-serif`);st.setProperty('--c2',S.c2);
+  st.setProperty('--fg',S.dark?'#fff':'#14172a');st.setProperty('--gb',S.gb+'px');st.setProperty('--ga',S.ga);st.setProperty('--tf',`'${FN[S.font][1]}',system-ui,sans-serif`);st.setProperty('--c2',S.c2);const B=BX[S.brand],SG=$('#stage');st.setProperty('--pb',B[5]);st.setProperty('--pr',B[6]+'px');st.setProperty('--is',S.isz+'%');SG.classList.toggle('up',S.brand==='nothing');SG.classList.toggle('nl',!S.lab);$('#bn').textContent=B[0]+' look: '+B[8]+'.';document.querySelectorAll('.pw figcaption').forEach((f,i)=>f.textContent=PH[i][1]+' · '+B[0]);sync();
   R.setProperty('--g1',S.c1+'66');R.setProperty('--g2',S.c2+'44');
   const U=IC.map((_,i)=>iconURL(i)),sc=screens(U);
   PH.forEach(([k])=>{const el=$('#p-'+k),c=el.querySelector('canvas'),x=c.getContext('2d');
     if(k==='apps'){x.fillStyle='#000';x.fillRect(0,0,c.width,c.height)}else{drawWall(x,c.width,c.height,k==='lock'?S.seed+7:S.seed);if(k==='shade'){x.fillStyle='rgba(0,0,0,.4)';x.fillRect(0,0,c.width,c.height)}}
     el.style.color=k==='apps'||k==='shade'?'#fff':'';el.querySelector('.scr').innerHTML=sc[k]});
 }
-function sync(){['c1','c2','dim','rad','gb','ga'].forEach(k=>$('#'+k).value=S[k])}
+function sync(){['c1','c2','dim','rad','gb','ga','isz','gr'].forEach(k=>$('#'+k).value=S[k])}
 ['c1','c2'].forEach(k=>$('#'+k).oninput=e=>{S[k]=e.target.value;update()});
-['dim','rad','gb','ga'].forEach(k=>$('#'+k).oninput=e=>{S[k]=+e.target.value;update()});
+['dim','rad','gb','ga','isz','gr'].forEach(k=>$('#'+k).oninput=e=>{S[k]=+e.target.value;update()});
 $('#shuf').onclick=()=>{S.seed=Math.floor(Math.random()*9999)+1;update()};
 $('#up').onclick=()=>$('#file').click();
 $('#file').onchange=e=>{const f=e.target.files[0];if(!f)return;const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{S.img=im;S.wp='photo';update()};im.src=fr.result};fr.readAsDataURL(f)};
@@ -240,17 +309,25 @@ async function build(){
   z.file('SETUP.txt','Theme Studio - setup for '+BR.find(x=>x[0]===S.brand)[1]+'\n\n'+steps().map((t,i)=>(i+1)+'. '+t).join('\n\n')+'\n');
   return z.generateAsync({type:'blob'});
 }
+function dl(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},5000)}
+function toast(m){const e=$('#st');e.textContent=m;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),3800)}
+function go(){const e=$('#stage');e.classList.remove('go');void e.offsetWidth;e.classList.add('go');clearTimeout(go.t);go.t=setTimeout(()=>e.classList.remove('go'),1400)}
 async function save(kind){
-  const st=$('#st'),d=window.claude?await window.claude.use('downloads'):null;
-  if(!d){st.textContent='Saving files isn’t available in this view. Open the page in the Claude app or on claude.ai.';return}
-  st.textContent='Building your files…';
+  toast('Building your files…');
   try{
-    if(kind==='zip')await d.save({filename:'my-theme.zip',data:await build()});
-    else await d.save({filename:kind+'-wallpaper.png',data:await png(1080,2400,(x,w,h)=>drawWall(x,w,h,kind==='lock'?S.seed+7:S.seed))});
-    st.textContent='Saved. Follow the steps below to set it up on your phone.';
-  }catch(e){st.textContent=e&&e.code==='declined'?'Download cancelled.':'Couldn’t save the file. Try again.'}
+    if(kind==='zip')dl(await build(),'my-theme.zip');
+    else if(kind==='json')dl(new Blob([JSON.stringify({...S,img:null},null,2)],{type:'application/json'}),'theme-settings.json');
+    else dl(await png(1080,2400,(x,w,h)=>drawWall(x,w,h,kind==='lock'?S.seed+7:S.seed)),kind+'-wallpaper.png');
+    toast('Downloaded. Follow the setup steps below.');
+  }catch(e){toast(e===0?'The zip tool did not load. Check your internet and try again.':'Could not build the file. Try again.')}
 }
-$('#zip').onclick=()=>save('zip');$('#hb').onclick=()=>save('home');$('#lb').onclick=()=>save('lock');
+$('#zip').onclick=()=>save('zip');$('#hb').onclick=()=>save('home');$('#lb').onclick=()=>save('lock');$('#js').onclick=()=>save('json');
+$('#swp').onclick=()=>{[S.c1,S.c2]=[S.c2,S.c1];go();update()};
+$('#sur').onclick=()=>{const pk=a=>a[Math.random()*a.length|0];Object.assign(S,pk(LK)[1],{look:'',seed:(Math.random()*9999|0)+1,wp:pk(WP),istyle:pk(IS),font:pk(Object.keys(FN)),lock:pk(LS)});go();update()};
+function tick(){const t=new Date(),p=n=>String(n).padStart(2,'0'),hm=p(t.getHours())+':'+p(t.getMinutes()),q=(c,v)=>document.querySelectorAll(c).forEach(e=>e.textContent=v);q('.hm',hm);q('.hs',hm+':'+p(t.getSeconds()));q('.hh',p(t.getHours()));q('.mm',p(t.getMinutes()))}
+setInterval(tick,1000);
+document.addEventListener('pointermove',e=>{const m=$('#stage').style;m.setProperty('--ry',((e.clientX/innerWidth-.5)*12).toFixed(2)+'deg');m.setProperty('--rx',((.5-e.clientY/innerHeight)*8).toFixed(2)+'deg')});
+document.querySelectorAll('fieldset').forEach((f,i)=>f.style.setProperty('--k',i));go();
 sync();update();
 </script>
 </body>
