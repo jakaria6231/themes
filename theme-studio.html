@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Theme Studio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Courgette&family=Nunito:wght@600;800&family=Oswald:wght@500&family=Playfair+Display:wght@600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+:root{--bg:#E9ECF5;--pn:rgba(255,255,255,.68);--ink:#141728;--mute:#555B78;--ln:rgba(20,23,40,.13);--acc:#3347D6;--on:#fff;--hd:'Bricolage Grotesque',system-ui,sans-serif;--g1:#2563EB55;--g2:#06B6D455;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1220;--pn:rgba(30,35,58,.58);--ink:#EEF0FA;--mute:#A3A9C6;--ln:rgba(255,255,255,.13);--acc:#93A4FF;--on:#0E1226;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1220;--pn:rgba(30,35,58,.58);--ink:#EEF0FA;--mute:#A3A9C6;--ln:rgba(255,255,255,.13);--acc:#93A4FF;--on:#0E1226;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:16px/1.5 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:radial-gradient(55% 45% at 85% 8%,var(--g1),transparent),radial-gradient(50% 45% at 8% 75%,var(--g2),transparent),var(--bg);background-attachment:fixed;min-height:100vh}
+.wrap{display:grid;grid-template-columns:minmax(0,470px) minmax(0,1fr);gap:36px;max-width:1180px;margin:0 auto;padding:30px 16px 56px}
+h1{font:800 clamp(34px,6vw,56px)/1 var(--hd);margin:0 0 10px;letter-spacing:-.03em}
+.lead{color:var(--mute);margin:0 0 22px;max-width:50ch}
+fieldset{background:var(--pn);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--ln);border-radius:22px;padding:14px 16px 18px;margin:0 0 14px;min-width:0}
+legend{font:800 17px var(--hd);padding:0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button,.btn{font:inherit;font-size:15px;border:1.5px solid var(--ln);background:transparent;color:var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer;min-height:40px}
+.chips button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--on)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:12px}
+.sw{width:42px;height:42px;border-radius:50%;border:2px solid var(--ln);cursor:pointer;padding:0}
+.sw[aria-pressed="true"]{border-color:var(--ink)}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.pg button{display:flex;align-items:center;gap:10px;text-align:left;font:600 14px var(--hd);border:1.5px solid var(--ln);background:transparent;color:var(--ink);border-radius:16px;padding:8px;cursor:pointer}
+.pg i{width:34px;height:34px;border-radius:11px;flex:none}
+label{display:flex;gap:8px;align-items:center;font-size:15px;color:var(--mute)}
+label.rg{display:grid;grid-template-columns:96px 1fr;width:100%}
+input[type=range]{accent-color:var(--acc);width:100%}
+input[type=color]{width:48px;height:40px;border:1.5px solid var(--ln);border-radius:10px;background:none;padding:2px;cursor:pointer}
+.btn.main{background:var(--acc);border-color:var(--acc);color:var(--on);font-weight:700}
+#st{min-height:24px;color:var(--mute);font-size:14px;margin:10px 0 0}
+.note{font-size:14px;color:var(--mute);margin:8px 0 0}
+ol{margin:12px 0 0;padding-left:22px}li{margin:0 0 8px}
+.side{position:sticky;top:16px;align-self:start}
+.stage{display:grid;grid-template-columns:1fr 1fr;gap:22px 20px;--fg:#fff}
+.pw{margin:0;text-align:center}.pw figcaption{margin-top:8px;font-size:14px;color:var(--mute)}
+.phone{container-type:inline-size;position:relative;aspect-ratio:9/19.5;border-radius:34px;border:7px solid #0b0c12;overflow:hidden;background:#000;color:var(--fg);font-family:var(--tf);text-align:left;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.phone canvas{position:absolute;inset:0;width:100%;height:100%}
+.scr{position:absolute;inset:0;padding:5cqw 5cqw 4cqw;display:flex;flex-direction:column;font-size:3.4cqw;line-height:1.25}
+.sb{display:flex;justify-content:space-between;font-size:3cqw;margin-bottom:3cqw}
+.gl{background:rgba(255,255,255,var(--ga));backdrop-filter:blur(var(--gb));-webkit-backdrop-filter:blur(var(--gb));border:1px solid rgba(255,255,255,.22);border-radius:6cqw}
+.wr{display:grid;grid-template-columns:1fr 1fr;gap:3cqw;margin-bottom:5cqw}
+.wr .gl{padding:3cqw}.wr b{font:600 6.5cqw/1.1 var(--tf);display:block}
+.rw{display:flex;justify-content:space-between;gap:2cqw;margin-top:2.5cqw;font-size:3cqw}
+.bar{height:1.6cqw;border-radius:9px;background:rgba(255,255,255,.7);overflow:hidden;margin-top:1cqw}.bar i{display:block;height:100%}
+.gr{display:grid;grid-template-columns:repeat(4,1fr);gap:3.5cqw 2cqw;text-align:center}
+.ap img{width:100%;display:block}.ap span{font-size:2.6cqw;display:block;margin-top:.6cqw;white-space:nowrap;overflow:hidden}
+.dk{margin-top:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:3cqw;padding:2.6cqw}.dk img{width:100%}
+.lk{text-align:center;margin-top:6cqw}.lk .d{font-size:4.4cqw}
+.gt{font:500 37cqw/1 Oswald,sans-serif;color:color-mix(in srgb,var(--fg) 20%,transparent);-webkit-text-stroke:.35cqw color-mix(in srgb,var(--fg) 55%,transparent);margin:4cqw 0}
+.ct{font:600 19cqw/1 var(--tf);margin:3cqw 0}
+.lw{display:flex;justify-content:space-between;font-size:3cqw;margin-top:4cqw;text-align:left}
+.bt{margin-top:auto;display:flex;justify-content:space-between}.bt .gl{width:13cqw;height:13cqw;display:grid;place-items:center;border-radius:50%}.bt svg{width:6cqw}
+.big b{font:600 11cqw/1 var(--tf);display:block}.big span{font-size:3.4cqw}
+.qs{display:flex;justify-content:space-between;padding:3cqw;margin:4cqw 0 3cqw}
+.qs em{width:11cqw;height:11cqw;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center}.qs em.on{background:var(--c2);color:#0b0d12}.qs svg{width:5.5cqw}
+.br{height:9cqw;margin-bottom:3cqw;overflow:hidden}.br i{display:block;height:100%;width:42%;background:rgba(255,255,255,.55)}
+.nt{display:flex;gap:3cqw;align-items:center;padding:3cqw;margin-bottom:2.6cqw;border-radius:8cqw}.nt img{width:10cqw}.nt b{font:600 3.5cqw var(--tf);display:block}.nt span{font-size:3cqw;opacity:.85}
+.tb{display:flex;gap:4cqw;font-size:3.6cqw;margin-bottom:4cqw}.tb span:first-child{color:var(--c2)}
+.sr{margin-top:auto;border:1px solid rgba(255,255,255,.3);border-radius:9cqw;padding:3.5cqw 5cqw;opacity:.85}
+@media (max-width:900px){.wrap{grid-template-columns:1fr}.side{order:-1;position:static}.stage{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px}.pw{flex:0 0 min(62vw,250px);scroll-snap-align:center}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section>
+  <h1>Design your phone theme</h1>
+  <p class="lead">Start from a look, tune every detail, and see your home screen, lock screen, app drawer and notifications update live.</p>
+  <fieldset><legend>Phone brand</legend><div class="chips" id="brands"></div></fieldset>
+  <fieldset><legend>Start from a look</legend><div class="pg" id="looks"></div></fieldset>
+  <fieldset><legend>What to include</legend><div class="chips" id="inc"></div></fieldset>
+  <fieldset><legend>Colors</legend>
+    <div class="row" id="sws" style="margin-top:0"></div>
+    <div class="row"><label>Main <input type="color" id="c1"></label><label>Second <input type="color" id="c2"></label></div>
+    <div class="row chips" id="mode"></div>
+  </fieldset>
+  <fieldset><legend>Wallpaper</legend>
+    <div class="chips" id="wp"></div>
+    <div class="row"><button class="btn" id="shuf" type="button">Shuffle the pattern</button><button class="btn" id="up" type="button">Use my own photo</button><input type="file" id="file" accept="image/*" hidden></div>
+    <div class="row"><label class="rg">Darken <input type="range" id="dim" min="0" max=".7" step=".05"></label></div>
+  </fieldset>
+  <fieldset><legend>Icons</legend>
+    <div class="chips" id="istyle"></div>
+    <div class="row"><label class="rg">Roundness <input type="range" id="rad" min="6" max="50" step="1"></label></div>
+  </fieldset>
+  <fieldset><legend>Text and glass</legend>
+    <div class="chips" id="font"></div>
+    <div class="row chips" id="lock"></div>
+    <div class="row"><label class="rg">Glass blur <input type="range" id="gb" min="0" max="30" step="1"></label><label class="rg">Glass tint <input type="range" id="ga" min="0.04" max="0.5" step="0.02"></label></div>
+  </fieldset>
+  <fieldset><legend>Download and set it up</legend>
+    <div class="chips"><button class="btn main" id="zip" type="button">Download theme (.zip)</button><button class="btn" id="hb" type="button">Home wallpaper</button><button class="btn" id="lb" type="button">Lock wallpaper</button></div>
+    <p id="st" role="status"></p>
+    <p class="note">The zip holds wallpapers, icons, glass widget backgrounds, a color palette and a setup guide. Phone brands only accept full theme files (like Xiaomi’s .mtz) from their own designer tools, so the steps below show how to apply everything by hand.</p>
+    <ol id="steps"></ol>
+  </fieldset>
+</section>
+<aside class="side"><div class="stage" id="stage"></div></aside>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const BR=[
+['xiaomi','Xiaomi / Redmi / POCO','Open the picture in Gallery, tap ⋮ > Set as wallpaper. Or long-press the home screen > Wallpaper.','To bundle everything into one installable theme, import the files into Xiaomi’s Theme Editor on a PC, export a .mtz and open it in the Themes app.'],
+['samsung','Samsung','Settings > Wallpaper and style > My wallpapers, or Gallery > ⋮ > Set as wallpaper.','Good Lock > Theme Park lets you pick icon shapes and colors by hand.'],
+['oppo','OPPO / Realme','Settings > Wallpapers > Gallery, then pick the picture.','Settings > Personalization has accent color and icon style.'],
+['vivo','vivo / iQOO','Settings > Wallpaper and themes > Wallpaper > Gallery.','Settings > Wallpaper and themes also has icon and color options.'],
+['huawei','Huawei / Honor','Settings > Home screen and wallpaper > Wallpaper > Gallery.','Custom .hwt themes need Huawei’s Theme Studio.'],
+['pixel','Google Pixel','Long-press the home screen > Wallpaper and style > More wallpapers > My photos.','Pixel picks system colors from the wallpaper. Turn on Themed icons in Wallpaper and style.'],
+['oneplus','OnePlus','Settings > Wallpapers and style > Wallpaper > My photos.','Wallpapers and style also has accent color and icon style.'],
+['moto','Motorola','Long-press the home screen > Styles and wallpapers > My photos.','Styles and wallpapers also has accent color and icon shape.'],
+['nothing','Nothing','Long-press the home screen > Wallpaper and style > My photos.','Wallpaper and style has color and icon options.'],
+['other','Other Android','Open the picture in Gallery, tap ⋮ > Set as wallpaper.','Look for Personalization or Themes in Settings.']];
+const IC=[['Phone','M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'],
+['Messages','M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'],
+['Browser','M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M2 12h20 M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'],
+['Camera','M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z M12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z'],
+['Gallery','M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z M8.5 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z M21 15l-5-5L5 21'],
+['Settings','M4 21v-7 M4 10V3 M12 21v-9 M12 8V3 M20 21v-5 M20 12V3 M1 14h6 M9 8h6 M17 16h6'],
+['Music','M9 18V5l12-2v13 M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'],
+['Maps','M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'],
+['Mail','M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z M22 6l-10 7L2 6'],
+['Clock','M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 6v6l4 2'],
+['Calendar','M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z M16 2v4 M8 2v4 M3 10h18'],
+['Files','M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'],
+['Notes','M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8'],
+['Weather','M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z'],
+['Videos','M23 7l-7 5 7 5z M3 5h11a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z'],
+['Health','M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z']];
+const N=IC.length;
+const FN={script:['Script','Courgette'],rounded:['Rounded','Nunito'],condensed:['Condensed','Oswald'],serif:['Serif','Playfair Display']};
+const PRE=[['Ocean','#2563EB','#06B6D4'],['Sunset','#F97316','#DB2777'],['Orchid','#7C3AED','#EC4899'],['Forest','#15803D','#CA8A04'],['Mint','#0D9488','#84CC16'],['Slate','#334155','#94A3B8']];
+const LK=[
+['Midnight Knit',{c1:'#1E5F8C',c2:'#8CC0E0',dark:1,wp:'peaks',istyle:'knit',rad:24,font:'script',lock:'giant',gb:14,ga:.12,dim:.1}],
+['Aurora Glass',{c1:'#7C3AED',c2:'#22D3EE',dark:1,wp:'glow',istyle:'glass',rad:34,font:'rounded',lock:'center',gb:22,ga:.16,dim:0}],
+['Sakura Soft',{c1:'#EC4899',c2:'#F59E0B',dark:0,wp:'waves',istyle:'solid',rad:50,font:'rounded',lock:'center',gb:16,ga:.4,dim:0}],
+['Neon Grid',{c1:'#22C55E',c2:'#06B6D4',dark:1,wp:'shapes',istyle:'outline',rad:16,font:'condensed',lock:'giant',gb:8,ga:.08,dim:.25}],
+['Royal Ink',{c1:'#B45309',c2:'#FCD34D',dark:1,wp:'gradient',istyle:'solid',rad:30,font:'serif',lock:'left',gb:12,ga:.14,dim:.1}]];
+const S={brand:'xiaomi',inc:{home:1,lock:1,icons:1,widgets:1,palette:1},seed:7,img:null,...LK[0][1]};
+
+const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const mix=(a,b,t)=>'#'+rgb(a).map((v,i)=>Math.round(v+(rgb(b)[i]-v)*t).toString(16).padStart(2,'0')).join('');
+const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+
+function drawWall(x,w,h,seed){
+  const r=rng(seed),{c1,c2,dark,wp}=S,base=dark?mix(c1,'#000000',.82):mix(c1,'#ffffff',.86);
+  x.fillStyle=base;x.fillRect(0,0,w,h);
+  if(wp==='gradient'){const g=x.createLinearGradient(0,0,w*(.3+r()*.7),h);g.addColorStop(0,dark?mix(c1,'#000000',.3):mix(c1,'#ffffff',.5));g.addColorStop(1,dark?mix(c2,'#000000',.55):mix(c2,'#ffffff',.4));x.fillStyle=g;x.fillRect(0,0,w,h)}
+  if(wp==='glow')for(let i=0;i<4;i++){const cx=r()*w,cy=r()*h,rad=(.5+r()*.5)*h*.5,g=x.createRadialGradient(cx,cy,0,cx,cy,rad),c=i%2?c2:c1;g.addColorStop(0,c+'cc');g.addColorStop(1,c+'00');x.fillStyle=g;x.fillRect(0,0,w,h)}
+  if(wp==='waves')for(let i=0;i<5;i++){const y0=h*(.3+i*.15),amp=h*(.03+r()*.04),ph=r()*6,fr=1+r()*1.5;x.beginPath();x.moveTo(0,h);for(let p=0;p<=w;p+=w/40)x.lineTo(p,y0+Math.sin(p/w*Math.PI*2*fr+ph)*amp);x.lineTo(w,h);x.closePath();x.fillStyle=mix(c1,c2,i/4)+(dark?'88':'99');x.fill()}
+  if(wp==='shapes')for(let i=0;i<9;i++){const s=(.15+r()*.4)*w,px=r()*w,py=r()*h;x.fillStyle=mix(c1,c2,r())+'55';x.beginPath();if(i%3==0)x.roundRect(px-s/2,py-s/2,s,s,s*.25);else x.arc(px,py,s/2,0,7);x.fill()}
+  if(wp==='peaks'){const k=x.createLinearGradient(0,0,0,h*.7);k.addColorStop(0,mix(base,c2,.45));k.addColorStop(1,base);x.fillStyle=k;x.fillRect(0,0,w,h);
+    for(let i=0;i<5;i++){const b=h*(.5+i*.1),a=h*(.2-i*.03),ph=r()*6,fr=2+r()*2;x.beginPath();x.moveTo(0,h);for(let p=0;p<=w;p+=w/30)x.lineTo(p,b-a*(Math.abs(Math.sin(p/w*fr+ph))*.75+r()*.25));x.lineTo(w,h);x.closePath();x.fillStyle=mix(mix(base,c1,.5),dark?'#000000':'#ffffff',i*.16);x.fill();
+      const m=x.createLinearGradient(0,b-a*.3,0,b+h*.08),mc=mix(c2,'#ffffff',.3);m.addColorStop(0,mc+'00');m.addColorStop(1,mc+'55');x.fillStyle=m;x.fillRect(0,b-a*.3,w,h*.38)}}
+  if(wp==='photo'&&S.img){const k=Math.max(w/S.img.width,h/S.img.height);x.drawImage(S.img,(w-S.img.width*k)/2,(h-S.img.height*k)/2,S.img.width*k,S.img.height*k)}
+  if(S.dim>0){x.fillStyle=`rgba(0,0,0,${S.dim})`;x.fillRect(0,0,w,h)}
+}
+function drawIcon(x,s,i){
+  const col=mix(S.c1,S.c2,i/(N-1)),r=S.rad/100*s,st=S.istyle;let ink='#fff';
+  x.clearRect(0,0,s,s);x.save();x.beginPath();x.roundRect(1,1,s-2,s-2,r);x.clip();
+  if(st==='knit'||st==='solid'){const g=x.createLinearGradient(0,0,s,s);
+    if(st==='knit'){g.addColorStop(0,'#1d2127');g.addColorStop(1,'#0b0d10')}else{g.addColorStop(0,mix(col,'#ffffff',.2));g.addColorStop(1,mix(col,'#000000',.3))}
+    x.fillStyle=g;x.fillRect(0,0,s,s);
+    if(st==='knit'){x.fillStyle='rgba(255,255,255,.07)';for(let k=0;k<s;k+=s/40){x.fillRect(k,0,s/80,s);x.fillRect(0,k,s,s/80)}ink=mix(col,'#ffffff',.25)}}
+  else if(st==='glass'){x.fillStyle=S.dark?'rgba(255,255,255,.2)':'rgba(255,255,255,.6)';x.fillRect(0,0,s,s);if(!S.dark)ink=mix(col,'#000000',.4)}
+  else ink=col;
+  x.restore();x.beginPath();x.roundRect(1,1,s-2,s-2,r);x.strokeStyle=st==='outline'?col:'rgba(255,255,255,.22)';x.lineWidth=st==='outline'?s/24:s/60;x.stroke();
+  x.save();x.translate(s*.25,s*.25);x.scale(s*.5/24,s*.5/24);if(st==='knit'){x.shadowColor=col;x.shadowBlur=s*.12}
+  x.strokeStyle=ink;x.lineWidth=st==='knit'?2.4:2;x.lineCap=x.lineJoin='round';x.stroke(new Path2D(IC[i][1]));x.restore();
+}
+function drawGlass(x,w,h,rad){x.beginPath();x.roundRect(3,3,w-6,h-6,rad);x.fillStyle=`rgba(255,255,255,${S.ga+.04})`;x.fill();const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,'rgba(255,255,255,.5)');g.addColorStop(.5,'rgba(255,255,255,.06)');g.addColorStop(1,'rgba(255,255,255,.35)');x.strokeStyle=g;x.lineWidth=5;x.stroke()}
+const png=(w,h,fn)=>new Promise(r=>{const c=document.createElement('canvas');c.width=w;c.height=h;fn(c.getContext('2d'),w,h);c.toBlob(r,'image/png')});
+const iconURL=i=>{const c=document.createElement('canvas');c.width=c.height=128;drawIcon(c.getContext('2d'),128,i);return c.toDataURL()};
+const sv=(i,c)=>`<svg viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${IC[i][1]}"/></svg>`;
+
+function chips(id,items,on,pick){const el=$(id);el.innerHTML='';items.forEach(([k,l])=>{const b=document.createElement('button');b.type='button';b.textContent=l;b.setAttribute('aria-pressed',!!on(k));b.onclick=()=>{pick(k);update()};el.append(b)})}
+function pal(){const{c1,c2,dark}=S;return{mode:dark?'dark':'light',primary:c1,secondary:c2,background:dark?mix(c1,'#000000',.85):mix(c1,'#ffffff',.92),surface:dark?mix(c1,'#000000',.7):mix(c1,'#ffffff',.8),text:dark?'#F2F3FA':'#16182A',font:FN[S.font][1],iconStyle:S.istyle,glassBlur:S.gb,glassTint:S.ga}}
+function steps(){
+  const b=BR.find(x=>x[0]===S.brand),H=S.inc.home,L=S.inc.lock,a=['Unzip: open my-theme.zip in Files by Google (or your file manager) and tap Extract.'];
+  if(H||L)a.push('Wallpaper: '+b[2]+' Choose '+(H&&L?'home.png for the home screen and lock.png for the lock screen.':H?'home.png.':'lock.png.'));
+  if(S.inc.icons)a.push('Icons: install Nova Launcher (or another launcher that can change single icons) and set it as your home app. Long-press an app, tap Edit, tap its icon, then pick a picture from the icons folder. Repeat for each app.');
+  if(S.inc.widgets)a.push('Widgets: build a clock and weather widget in KWGT (free to try). Use widgets/glass-card-wide.png as the background and '+FN[S.font][1]+' as the font.');
+  a.push('Font: '+FN[S.font][1]+' is free on Google Fonts. Pick a similar one in your phone’s font settings, or add it in the theme editor.');
+  if(S.inc.palette)a.push('Colors: use the hex codes in palette.json wherever your phone asks for an accent color. '+b[3]);
+  a.push('Menu names can differ a little between software versions.');return a}
+
+function screens(U){
+  const t=new Date(),p=n=>String(n).padStart(2,'0'),hm=p(t.getHours())+':'+p(t.getMinutes()),hms=hm+':'+p(t.getSeconds()),dt=t.toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'}),
+  sb=`<div class="sb"><span>${hm}</span><span>53%</span></div>`,ap=(i,l=1)=>`<div class="ap"><img alt="" src="${U[i]}">${l?`<span>${IC[i][0]}</span>`:''}</div>`,
+  W=S.inc.widgets?`<div class="wr"><div class="gl"><b>${hms}</b><div class="rw"><span>${t.toLocaleDateString([], {weekday:'long'})}</span><span style="color:var(--c2)">${t.getDate()}/${t.getMonth()+1}</span></div><div class="rw"><span>5116 steps<div class="bar"><i style="width:40%;background:#FBBF24"></i></div></span><span>53%<div class="bar"><i style="width:53%;background:#34D399"></i></div></span></div></div><div class="gl"><span>Your city</span><b>Light rain</b><div class="rw"><span>Tom<br>25/22°</span><span>Sat<br>25/21°</span></div></div></div>`:'';
+  const lt=S.lock==='giant'?`<div class="lk"><div class="d">${dt}</div><div class="gt">${hm}</div></div>`:S.lock==='center'?`<div class="lk"><div class="d">${dt}</div><div class="ct">${hm}</div></div>`:`<div class="lk" style="text-align:left"><div class="ct">${hm}</div><div class="d">${dt}</div></div>`;
+  return{
+    home:sb+W+`<div class="gr">${[4,5,6,7,8,9,10,11].map(i=>ap(i)).join('')}</div><div class="gl dk">${[0,1,2,3].map(i=>ap(i,0)).join('')}</div>`,
+    lock:sb+lt+(S.inc.widgets?`<div class="lw"><span>53%<br>Device battery</span><span>Steps<br>5116</span></div>`:'')+`<div class="bt"><div class="gl">${sv(9,'currentColor')}</div><div class="gl">${sv(3,'currentColor')}</div></div>`,
+    apps:sb+`<div class="tb"><span>All</span><span>Social</span><span>Tools</span></div><div class="gr">${IC.map((_,i)=>ap(i)).join('')}</div><div class="sr">Search for apps</div>`,
+    shade:sb+`<div class="big"><b>${hm}</b><span>${dt}</span></div><div class="gl qs">${[5,7,6,2,3].map((i,n)=>`<em class="${n?'':'on'}">${sv(i,'currentColor')}</em>`).join('')}</div><div class="gl br"><i></i></div>${[[1,'Messages','New message from Sam'],[8,'Mail','Your report is ready'],[10,'Calendar','Design review at 4:00']].map(([i,a,b])=>`<div class="gl nt"><img alt="" src="${U[i]}"><div><b>${a}</b><span>${b}</span></div></div>`).join('')}`};
+}
+const PH=[['home','Home'],['lock','Lock screen'],['apps','App drawer'],['shade','Notifications']];
+$('#stage').innerHTML=PH.map(([k,l])=>`<figure class="pw"><div class="phone" id="p-${k}"><canvas width="300" height="650"></canvas><div class="scr"></div></div><figcaption>${l}</figcaption></figure>`).join('');
+
+function update(){
+  chips('#brands',BR,k=>S.brand===k,k=>S.brand=k);
+  chips('#inc',[['home','Home wallpaper'],['lock','Lock wallpaper'],['icons','Icon pack'],['widgets','Widgets'],['palette','Color palette']],k=>S.inc[k],k=>S.inc[k]=S.inc[k]?0:1);
+  chips('#mode',[['d','Dark'],['l','Light']],k=>!!S.dark===(k==='d'),k=>S.dark=k==='d'?1:0);
+  chips('#wp',[['peaks','Peaks'],['glow','Glow'],['gradient','Gradient'],['waves','Waves'],['shapes','Shapes'],['photo','My photo']],k=>S.wp===k,k=>{S.wp=k;if(k==='photo'&&!S.img)$('#file').click()});
+  chips('#istyle',[['knit','Knit'],['solid','Solid'],['glass','Glass'],['outline','Outline']],k=>S.istyle===k,k=>S.istyle=k);
+  chips('#font',Object.entries(FN).map(([k,v])=>[k,v[0]]),k=>S.font===k,k=>S.font=k);
+  chips('#lock',[['giant','Giant clock'],['center','Centered'],['left','Left']],k=>S.lock===k,k=>S.lock=k);
+  $('#looks').innerHTML='';LK.forEach(([n,o])=>{const b=document.createElement('button');b.type='button';b.innerHTML=`<i style="background:linear-gradient(135deg,${o.c1},${o.c2})"></i>${n}`;b.onclick=()=>{Object.assign(S,o);sync();update()};$('#looks').append(b)});
+  $('#sws').innerHTML='';PRE.forEach(([n,a,b])=>{const s=document.createElement('button');s.type='button';s.className='sw';s.title=n;s.setAttribute('aria-label',n);s.style.background=`linear-gradient(135deg,${a},${b})`;s.setAttribute('aria-pressed',S.c1===a&&S.c2===b);s.onclick=()=>{S.c1=a;S.c2=b;sync();update()};$('#sws').append(s)});
+  $('#steps').innerHTML=steps().map(t=>`<li>${t}</li>`).join('');
+  const st=$('#stage').style,R=document.documentElement.style;
+  st.setProperty('--fg',S.dark?'#fff':'#14172a');st.setProperty('--gb',S.gb+'px');st.setProperty('--ga',S.ga);st.setProperty('--tf',`'${FN[S.font][1]}',system-ui,sans-serif`);st.setProperty('--c2',S.c2);
+  R.setProperty('--g1',S.c1+'66');R.setProperty('--g2',S.c2+'44');
+  const U=IC.map((_,i)=>iconURL(i)),sc=screens(U);
+  PH.forEach(([k])=>{const el=$('#p-'+k),c=el.querySelector('canvas'),x=c.getContext('2d');
+    if(k==='apps'){x.fillStyle='#000';x.fillRect(0,0,c.width,c.height)}else{drawWall(x,c.width,c.height,k==='lock'?S.seed+7:S.seed);if(k==='shade'){x.fillStyle='rgba(0,0,0,.4)';x.fillRect(0,0,c.width,c.height)}}
+    el.style.color=k==='apps'||k==='shade'?'#fff':'';el.querySelector('.scr').innerHTML=sc[k]});
+}
+function sync(){['c1','c2','dim','rad','gb','ga'].forEach(k=>$('#'+k).value=S[k])}
+['c1','c2'].forEach(k=>$('#'+k).oninput=e=>{S[k]=e.target.value;update()});
+['dim','rad','gb','ga'].forEach(k=>$('#'+k).oninput=e=>{S[k]=+e.target.value;update()});
+$('#shuf').onclick=()=>{S.seed=Math.floor(Math.random()*9999)+1;update()};
+$('#up').onclick=()=>$('#file').click();
+$('#file').onchange=e=>{const f=e.target.files[0];if(!f)return;const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{S.img=im;S.wp='photo';update()};im.src=fr.result};fr.readAsDataURL(f)};
+
+async function build(){
+  if(!window.JSZip)throw 0;
+  const z=new JSZip(),W=1080,H=2400;
+  if(S.inc.home)z.file('wallpapers/home.png',await png(W,H,(x,w,h)=>drawWall(x,w,h,S.seed)));
+  if(S.inc.lock)z.file('wallpapers/lock.png',await png(W,H,(x,w,h)=>drawWall(x,w,h,S.seed+7)));
+  if(S.inc.icons)for(let i=0;i<N;i++)z.file(`icons/${String(i+1).padStart(2,'0')}-${IC[i][0].toLowerCase()}.png`,await png(192,192,x=>drawIcon(x,192,i)));
+  if(S.inc.widgets){z.file('widgets/glass-card-wide.png',await png(640,300,(x,w,h)=>drawGlass(x,w,h,S.rad*3)));z.file('widgets/glass-dock.png',await png(960,220,(x,w,h)=>drawGlass(x,w,h,S.rad*3.4)))}
+  if(S.inc.palette)z.file('palette.json',JSON.stringify(pal(),null,2));
+  z.file('SETUP.txt','Theme Studio - setup for '+BR.find(x=>x[0]===S.brand)[1]+'\n\n'+steps().map((t,i)=>(i+1)+'. '+t).join('\n\n')+'\n');
+  return z.generateAsync({type:'blob'});
+}
+async function save(kind){
+  const st=$('#st'),d=window.claude?await window.claude.use('downloads'):null;
+  if(!d){st.textContent='Saving files isn’t available in this view. Open the page in the Claude app or on claude.ai.';return}
+  st.textContent='Building your files…';
+  try{
+    if(kind==='zip')await d.save({filename:'my-theme.zip',data:await build()});
+    else await d.save({filename:kind+'-wallpaper.png',data:await png(1080,2400,(x,w,h)=>drawWall(x,w,h,kind==='lock'?S.seed+7:S.seed))});
+    st.textContent='Saved. Follow the steps below to set it up on your phone.';
+  }catch(e){st.textContent=e&&e.code==='declined'?'Download cancelled.':'Couldn’t save the file. Try again.'}
+}
+$('#zip').onclick=()=>save('zip');$('#hb').onclick=()=>save('home');$('#lb').onclick=()=>save('lock');
+sync();update();
+</script>
+</body>
+</html>
